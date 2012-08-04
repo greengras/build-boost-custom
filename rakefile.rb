@@ -24,7 +24,8 @@ prefix       = '/opt/boost/1.50.0-gcc-4.7.1'
 
 bootstrap_options = [
   "--prefix=#{prefix}",
-  "--with-toolset=gcc"
+  "--with-toolset=gcc",
+  "--without-icu"
 ]
 
 bjam_options = [
@@ -32,6 +33,9 @@ bjam_options = [
   "--layout=tagged",
   "--user-config=#{config_jam}",
   "--without-python",
+  "--build-type=minimal",
+  "link=static",
+  "runtime-link=static",
   "threading=multi",
   "variant=debug,release",
   "address-model=32_64",
@@ -51,8 +55,8 @@ task :default => [ :build, :clean ]
 task :build do
   p "================= start building boost ================="
 
-  sh "wget #{boost_link}"
-  sh "tar xvfz #{boost_link.split('/').last }"
+  sh "wget #{boost_link}" unless File.exists?(boost_link.split('/').last)
+  sh "tar xvfz #{boost_link.split('/').last}"
 
   Dir.chdir build_path
 
@@ -60,8 +64,8 @@ task :build do
     file.write "using gcc : #{gcc_version} : #{gcc_path}/#{gcc} ;\n"
   end
 
-  sh "./bootstrap.sh #{bargs.join(' ')}"
-  sh "./b2 #{args.join(' ')}"
+  sh "./bootstrap.sh #{bootstrap_options.join(' ')}"
+  sh "./b2 #{bjam_options.join(' ')}"
 
   Dir.chdir working_path
 
