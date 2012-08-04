@@ -69,8 +69,6 @@ task :build do
 
   Dir.chdir working_path
 
-  sh "rm -Rf #{build_path}"
-
   p "================= finished building boost ================="
 end
 
