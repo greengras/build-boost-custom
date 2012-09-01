@@ -1,22 +1,28 @@
 require 'rake'
 require 'rake/clean'
 
-# ==========
-# variables
-# ==========
+# ======================
+# variables set by user
+# ======================
 
-boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.50.0/boost_1_50_0.tar.gz'
+boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.51.0/boost_1_51_0.tar.gz'
 
-working_path = Dir.pwd
-build_path   = "#{working_path}/boost_1_50_0"
-
-gcc_path     = '/usr/gcc-4.7.1/bin'
+gcc_path     = '/opt/gcc-4.7.1/bin'
 gcc          = 'gcc-4.7.1'
 gcc_version  = '4.7.1'
+boost_prefix = '/opt/boost'
 
-config_jam   = 'user-config.jam'
+# ===================================
+# variables automatically determined
+# ===================================
 
-prefix       = '/opt/boost/1.50.0-gcc-4.7.1'
+working_path  = Dir.pwd
+boost_folder  = boost_link.split('/').last.split('.').first
+boost_version = boost_link.split('/')[-2]
+
+build_path    = "#{working_path}/#{boost_folder}"
+prefix        = "#{boost_prefix}/#{boost_version}-gcc-#{gcc_version}"
+config_jam    = 'user-config.jam'
 
 # =============================
 # bootstrap.sh, bjam arguments
@@ -24,24 +30,24 @@ prefix       = '/opt/boost/1.50.0-gcc-4.7.1'
 
 bootstrap_options = [
   "--prefix=#{prefix}",
-  "--with-toolset=gcc",
-  "--without-icu"
+  '--with-toolset=gcc',
+  '--without-icu'
 ]
 
 bjam_options = [
   "--prefix=#{prefix}",
-  "--layout=tagged",
+  '--layout=tagged',
   "--user-config=#{config_jam}",
-  "--without-python",
-  "--build-type=minimal",
-  "link=static",
-  "runtime-link=static",
-  "threading=multi",
-  "variant=debug,release",
-  "address-model=32_64",
-  "architecture=x86",
-  "pch=off",
-  "install"
+  '--without-python',
+  '--build-type=minimal',
+  'link=static',
+  'runtime-link=static',
+  'threading=multi',
+  'variant=debug,release',
+  'address-model=32_64',
+  'architecture=x86',
+  'pch=off',
+  'install'
 ]
 
 # ============
@@ -53,7 +59,7 @@ CLEAN.include build_path
 task :default => [ :build, :clean ]
 
 task :build do
-  p "================= start building boost ================="
+  verbose(false) { sh "echo '================= start building boost ================='" }
 
   sh "wget #{boost_link}" unless File.exists?(boost_link.split('/').last)
   sh "tar xvfz #{boost_link.split('/').last}"
@@ -69,7 +75,7 @@ task :build do
 
   Dir.chdir working_path
 
-  p "================= finished building boost ================="
+  verbose(false) { sh "echo '================= finished building boost ================='" }
 end
 
 
