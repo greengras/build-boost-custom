@@ -5,7 +5,7 @@ require 'rake/clean'
 # variables set by user
 # ======================
 
-boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.51.0/boost_1_51_0.tar.gz'
+boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.53.0/boost_1_53_0.tar.gz'
 
 gcc_path     = '/opt/gcc-4.7.2/bin'
 gcc          = 'gcc-4.7.2'
