@@ -7,9 +7,9 @@ require 'rake/clean'
 
 boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.53.0/boost_1_53_0.tar.gz'
 
-gcc_path     = '/opt/gcc-4.7.2/bin'
-gcc          = 'gcc-4.7.2'
-gcc_version  = '4.7.2'
+gcc_path     = '/opt/gcc-4.8.0/bin'
+gcc          = 'gcc-4.8.0'
+gcc_version  = '4.8.0'
 boost_prefix = '/opt/boost'
 
 # ===================================
