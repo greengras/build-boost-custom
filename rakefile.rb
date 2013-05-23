@@ -5,11 +5,11 @@ require 'rake/clean'
 # variables set by user
 # ======================
 
-boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.53.0/boost_1_53_0.tar.gz'
+boost_link   = 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.gz'
 
-gcc_path     = '/opt/gcc-4.8.0/bin'
-gcc          = 'gcc-4.8.0'
-gcc_version  = '4.8.0'
+gcc_path     = '/opt/gcc-4.7.2/bin'
+gcc          = 'gcc-4.7.2'
+gcc_version  = '4.7.2'
 boost_prefix = '/opt/boost'
 
 # ===================================
@@ -74,6 +74,8 @@ task :build do
   sh "./b2 #{bjam_options.join(' ')}"
 
   Dir.chdir working_path
+
+  sh "rm -r #{boost_link.split('/').last}"
 
   verbose(false) { sh "echo '================= finished building boost ================='" }
 end
