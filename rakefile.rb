@@ -75,7 +75,7 @@ task :build do
 
   Dir.chdir working_path
 
-  sh "rm -r #{boost_link.split('/').last}"
+  sh "rm #{boost_link.split('/').last}"
 
   verbose(false) { sh "echo '================= finished building boost ================='" }
 end
