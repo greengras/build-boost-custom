@@ -44,9 +44,6 @@ bjam_options = [
   'runtime-link=static',
   'threading=multi',
   'variant=debug,release',
-  'address-model=32_64',
-  'architecture=x86',
-  'pch=off',
   'install'
 ]
 
